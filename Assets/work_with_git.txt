@@ -1,0 +1,8 @@
+1. Создать репозиторий на Git
+2. В настройках указать, игнорировать Unity
+3. Создать проект в Unity
+4. Перейти в проводнике в папку проекта
+5. Нажать правую кнопку и выбрать GitBush Here
+6. В GitBush набрать git init
+7. Затем набарать git remote add origin git@github.com:maximkavm/CSE_v2.git
+8. Этот кусок "git@github.com:maximkavm/CSE_v2.git" скопировать в rep/code/SSH
