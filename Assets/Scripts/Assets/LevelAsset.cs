@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets{
-[CreateAssetMenu(fileName = "Assets/LevelAsset")]
+[CreateAssetMenu(menuName ="Assets/Level Asset",fileName = "Assets/LevelAsset")]
 public class LevelAsset : ScriptableObject
 
 {
-    
+    public SceneAsset SceneAsset;
     
 }
 
