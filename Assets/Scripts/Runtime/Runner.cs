@@ -1,77 +1,92 @@
+using System;
+using System.Collections.Generic;
+
 using UnityEngine;
-namespace Runtime{
 
-// class Runner хранит ссылки на все контроллеры и для 
-// них вызывать метод Tick()
-public class Runner : MonoBehaviour {
-    
-    private List<IController> m_Controllers;
+namespace Runtime
+{
+    public class Runner : MonoBehaviour
+    {
+        private List<IController> m_Controllers;
+        private bool m_IsRunning = false;
 
-    private void Update() {
-        TickControllers();
-    }
-
-
-
-    private void OnStartControllers(){
-
-        foreach (IController controller in m_Controllers)
+        private void Update()
         {
-            try
+            if (!m_IsRunning)
             {
-                 controller.OnStart();
-                 //controller.OnStop();
-                 //controller.Tick();
-                 
+                return;
             }
-            catch (Exception e)
-            {
-
-                    Debug.LogError(e);
-            }
-
+            TickControllers();
         }
-    }
 
-    
-    private void OnStopControllers(){
-
-        foreach (IController controller in m_Controllers)
+        public void StartRunning()
         {
-            try
-            {
-                 
-                 controller.OnStop();
-                                 
-            }
-            catch (Exception e)
-            {
-
-                    Debug.LogError(e);
-            }
-
+            CreateAllControllers();
+            OnStartControllers();
+            m_IsRunning = true;
         }
-    }
 
-        private void TickControllers(){
-
-        foreach (IController controller in m_Controllers)
+        public void StopRunning()
         {
-            try
+            OnStopControllers();
+            m_IsRunning = false;
+        }
+
+        private void CreateAllControllers()
+        {
+            m_Controllers = new List<IController>
             {
-                 
                 
-                controller.Tick();
-                 
-            }
-            catch (Exception e)
+                            };
+        }
+
+        private void OnStartControllers()
+        {
+            foreach (IController controller in m_Controllers)
             {
-
+                try
+                {
+                    controller.OnStart();
+                }
+                catch (Exception e)
+                {
                     Debug.LogError(e);
+                }
             }
-
+        }
+        
+        private void TickControllers()
+        {
+            foreach (IController controller in m_Controllers)
+            {
+                if (!m_IsRunning)
+                {
+                    return;
+                }
+                try
+                {
+                    controller.Tick();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+            }
+        }
+        
+        private void OnStopControllers()
+        {
+            foreach (IController controller in m_Controllers)
+            {
+                try
+                {
+                    controller.OnStop();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+            }
         }
     }
-}
-
 }
