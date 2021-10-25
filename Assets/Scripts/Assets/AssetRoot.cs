@@ -8,7 +8,7 @@ namespace Assets{
 [CreateAssetMenu(fileName = "Assets/AssetRoot")]
 public class AssetRoot : ScriptableObject
 {
-
+   public List<LevelAsset>  levels;
 }
 
 }
